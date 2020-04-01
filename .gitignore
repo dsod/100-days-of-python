@@ -1,0 +1,8 @@
+# Python virtual environment
+.venv
+
+# Mypy static linter
+.mypy_cache
+
+# Python Cache
+__pycache__

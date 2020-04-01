@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "100-days-of-python"
+version = "0.1.0"
+description = ""
+authors = ["dsod <d.soderling@live.se>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+jupyter = "^1.0.0"
+ipykernel = "^5.2.0"
+requests = "^2.23.0"
+matplotlib = "^3.2.1"
+numpy = "^1.18.2"
+Pillow = "^7.0.0"
+tweepy = "^3.8.0"
+wordcloud = "^1.6.0"
+PyGithub = "^1.47"
+selenium = "^3.141.0"
+feedparser = "^5.2.1"
+plotly = "^4.5.4"
+pytest = "^5.4.1"
+pytest-cov = "^2.8.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^19.10b0"
+mypy = "^0.770"
+
+[build-system]
+requires = ["poetry-core>=1.0.0a5"]
+build-backend = "poetry.core.masonry.api"
