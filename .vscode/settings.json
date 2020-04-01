@@ -3,6 +3,5 @@
     "python.pythonPath": ".venv/bin/python3",
     "python.linting.pylintEnabled": false,
     "python.linting.mypyEnabled": true,
-    "python.linting.enabled": true,
-    "git.ignoreLimitWarning": true
+    "python.linting.enabled": true
 }
