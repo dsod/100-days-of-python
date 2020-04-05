@@ -1,55 +1,19 @@
-"""
-Extract datetimes from log entries and calculate the time
-between the first and last shutdown events
-"""
 
-from datetime import datetime
-from datetime import timedelta
-from pathlib import Path
-import urllib.request
+from datetime import datetime, timedelta
 
-SHUTDOWN_EVENT = "Shutdown initiated"
-
-# prep: read in the logfile
-tmp_folder = Path(Path(__file__).parent, "./tmp")
-tmp_folder.mkdir(parents=True, exist_ok=True)
-
-logfile = Path(tmp_folder, "log.txt")
-urllib.request.urlretrieve("http://bit.ly/2AKSIbf", logfile)
-
-with open(logfile) as f:
-    loglines = f.readlines()
+from .day2 import loglines, convert_to_datetime, time_between_shutdowns
 
 
-def convert_to_datetime(line: str) -> datetime:
-    """
-    Given a log line extract its timestamp and convert it to a datetime object. 
-    For example calling the function with:
-    INFO 2014-07-03T23:27:51 supybot Shutdown complete.
-    returns:
-    datetime(2014, 7, 3, 23, 27, 51)
-    """
-
-    datetime_in_line = line.split()[1]
-    return datetime.strptime(datetime_in_line, "%Y-%m-%dT%H:%M:%S")
+def test_convert_to_datetime() -> None:
+    line1 = "ERROR 2014-07-03T23:24:31 supybot Invalid user dictionary file"
+    line2 = "INFO 2015-10-03T10:12:51 supybot Shutdown initiated."
+    line3 = "INFO 2016-09-03T02:11:22 supybot Shutdown complete."
+    assert convert_to_datetime(line1) == datetime(2014, 7, 3, 23, 24, 31)
+    assert convert_to_datetime(line2) == datetime(2015, 10, 3, 10, 12, 51)
+    assert convert_to_datetime(line3) == datetime(2016, 9, 3, 2, 11, 22)
 
 
-def time_between_shutdowns(loglines: list) -> timedelta:
-    """
-    Extract shutdown events ("Shutdown initiated") from loglines and calculate the 
-    timedelta between the first and last one. 
-    Return this datetime.timedelta object."""
-
-    lines_with_shutdown_events = [line for line in loglines if SHUTDOWN_EVENT in line]
-    timestamp_of_shutdowns = [
-        convert_to_datetime(line) for line in lines_with_shutdown_events
-    ]
-    return max(timestamp_of_shutdowns) - min(timestamp_of_shutdowns)
-
-
-def main() -> None:
-    print(time_between_shutdowns(loglines))
-
-
-if __name__ == "__main__":
-    main()
+def test_time_between_events() -> None:
+    diff = time_between_shutdowns(loglines)
+    assert type(diff) == timedelta
+    assert str(diff) == "0:03:31"

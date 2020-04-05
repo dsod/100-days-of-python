@@ -2,6 +2,7 @@ from datetime import date
 
 from .day1 import count_days_to_christmas
 
+
 def test_count_days_to_christmas() -> None:
     this_year = date.today().year
 
