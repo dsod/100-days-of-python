@@ -1,7 +1,7 @@
 
 from datetime import datetime, timedelta
 
-from .day2 import loglines, convert_to_datetime, time_between_shutdowns
+from .day2 import convert_to_datetime, loglines, time_between_shutdowns
 
 
 def test_convert_to_datetime() -> None:

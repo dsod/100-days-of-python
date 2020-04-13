@@ -1,7 +1,8 @@
+import threading
 from datetime import timedelta
 from time import sleep
+
 from .day3 import PomodoroTimer
-import threading
 
 
 def test_pomodoro_timer() -> None:
@@ -29,4 +30,3 @@ def test_pomodoro_timer() -> None:
     sleep(5)
     assert timer.timer.seconds == 0
     assert not thread.is_alive()
-

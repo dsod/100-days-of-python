@@ -1,6 +1,9 @@
-from time import sleep
+"""
+A Pomodoro Timer and a interface the use it.
+"""
 import threading
 from datetime import datetime, timedelta
+from time import sleep
 from typing import Any
 
 import colorama
